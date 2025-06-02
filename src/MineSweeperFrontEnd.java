@@ -129,6 +129,22 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
      * Prints the current state of the mine grid.
      */
     public void printGrid() {
-        mineSweeper.printGrid();
+        for (int i = 0; i<mineSweeper.getCols(); i++) {
+            for (int j = 0; j < mineSweeper.getRows(); j++) {
+                Node node = mineSweeper.getNode(i, j);
+                if (node.isRevealed()) {
+                    if (node.isBomb()) {
+                        System.out.print("B "); // Print bomb
+                    } else {
+                        System.out.print(node.getBombsNearby() + " "); // Print number of bombs nearby
+                    }
+                } else if (node.isFlagged()) {
+                    System.out.print("F "); // Print flagged node
+                } else {
+                    System.out.print(". "); // Print unrevealed node
+                }
+            }
+            System.out.print("\n");
+        }
     }
 }

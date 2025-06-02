@@ -117,20 +117,6 @@ public class MineSweeper {
     }
 
 
-    // TODO: TODELETE
-    public void printGrid() {
-        for (int i = 0; i < mineGrid.getRows(); i++) {
-            for (int j = 0; j < mineGrid.getCols(); j++) {
-                Node node = mineGrid.getNode(i, j);
-                if (node.isBomb()) {
-                    System.out.print("B "); // Print bomb
-                } else {
-                    System.out.print(node.getBombsNearby() + " "); // Print number of bombs nearby
-                }
-            }
-            System.out.println();
-        }
-    }
 
     /**
      * Checks if the given row and column are out of bounds of the grid.
