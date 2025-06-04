@@ -2,6 +2,7 @@ import java.util.Queue;
 
 public class MineSweeper {
     private MineGrid mineGrid;
+    private final MineSweeperDifficulty difficulty;
 
 
     /**
@@ -11,8 +12,9 @@ public class MineSweeper {
      * @param rows number of rows in the grid
      * @param cols number of columns in the grid
      */
-    public MineSweeper(int rows, int cols) {
+    public MineSweeper(int rows, int cols, MineSweeperDifficulty difficulty) {
         mineGrid = new MineGrid(rows, cols);
+        this.difficulty = difficulty;
         System.out.println("MineSweeper grid created with " + mineGrid.getRows() + " rows and " + mineGrid.getCols() + " columns.");
     }
 
@@ -191,7 +193,8 @@ public class MineSweeper {
      */
     private void populateGridWithBombs() {
         // Logic to randomly place bombs in the grid
-        int randomBombs = (int) (0.2 * mineGrid.getSize());
+        double bombDensity = difficulty.getBombPercentage(); // Get bomb density from difficulty
+        int randomBombs = (int) (bombDensity * mineGrid.getSize());
         // keeps looping until the required number of bombs are placed
         while (randomBombs > 0) {
             int row = (int) (Math.random() * mineGrid.getRows());

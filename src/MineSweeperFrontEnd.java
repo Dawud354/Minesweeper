@@ -12,7 +12,8 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
     private void initialiseGame(){
         int rows = askGridRows();
         int cols = askGridColumns();
-        mineSweeper = new MineSweeper(rows, cols);
+        MineSweeperDifficulty difficulty = pickDifficulty();
+        mineSweeper = new MineSweeper(rows, cols, difficulty);
         displayInstructions();
         startGame();
     }
@@ -47,7 +48,6 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
         startPosition();
         final String CLEAR_SCREEN = "\033[H\033[2J";
 
-
         while (!gameOver) {
             print(CLEAR_SCREEN);
             printGrid();
@@ -64,7 +64,7 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
         }
     }
 
-    private void pickDifficulty() {
+    private MineSweeperDifficulty pickDifficulty() {
         print("Choose a difficulty level:");
         print("1. Easy (10% bombs)");
         print("2. Medium (20% bombs)");
@@ -73,7 +73,13 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
         while (choice < 1 || choice > 3) {
             choice = inputInt("Invalid choice. Please enter a number between 1 and 3: ");
         }
-        mineSweeper.setDifficulty(choice);
+        if (choice == 1) {
+            return MineSweeperDifficulty.EASY;
+        } else if (choice == 2) {
+            return MineSweeperDifficulty.MEDIUM;
+        } else {
+            return MineSweeperDifficulty.HARD;
+        }
     }
 
     private void startPosition(){
