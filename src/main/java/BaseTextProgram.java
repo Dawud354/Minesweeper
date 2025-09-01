@@ -40,7 +40,6 @@ public class BaseTextProgram {
         return text.matches("[a-zA-Z0-9 !?.,']+");
     }
 
-
     // method to get input from user
     //
     public static String inputString(String message) {
