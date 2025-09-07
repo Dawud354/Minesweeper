@@ -73,7 +73,7 @@ public class MenuView {
 
         // === Start Button ===
         Button startBtn = new Button("Start Game");
-        startBtn.setOnAction(e -> manager.showGame());
+        startBtn.setOnAction(e -> manager.showGame(gridRows, gridCols, mineCount));
 
         // === Main content stack ===
         VBox content = new VBox(20,

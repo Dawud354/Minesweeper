@@ -47,8 +47,8 @@ public class SceneManager {
         root.setCenter(menu.getView());
     }
 
-    public void showGame() {
-        GameView game = new GameView(this);
+    public void showGame(int rows, int cols, int mines) {
+        GameView game = new GameView(this, rows, cols, mines);
         root.setCenter(game.getView());
     }
 }

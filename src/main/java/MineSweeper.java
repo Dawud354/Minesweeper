@@ -2,7 +2,7 @@ import java.util.Queue;
 
 public class MineSweeper {
     private MineGrid mineGrid;
-    private final MineSweeperDifficulty difficulty;
+    private int mineCount;
 
 
     /**
@@ -12,9 +12,9 @@ public class MineSweeper {
      * @param rows number of rows in the grid
      * @param cols number of columns in the grid
      */
-    public MineSweeper(int rows, int cols, MineSweeperDifficulty difficulty) {
+    public MineSweeper(int rows, int cols, int mineCount) {
         mineGrid = new MineGrid(rows, cols);
-        this.difficulty = difficulty;
+        this.mineCount = mineCount;
         System.out.println("MineSweeper grid created with " + mineGrid.getRows() + " rows and " + mineGrid.getCols() + " columns.");
     }
 
@@ -193,10 +193,9 @@ public class MineSweeper {
      */
     private void populateGridWithBombs() {
         // Logic to randomly place bombs in the grid
-        double bombDensity = difficulty.getBombPercentage(); // Get bomb density from difficulty
-        int randomBombs = (int) (bombDensity * mineGrid.getSize());
         // keeps looping until the required number of bombs are placed
-        while (randomBombs > 0) {
+        int bombsToPlace = mineCount;
+        while (bombsToPlace > 0) {
             int row = (int) (Math.random() * mineGrid.getRows());
             int col = (int) (Math.random() * mineGrid.getCols());
             Node node = mineGrid.getNode(row, col);
@@ -205,7 +204,7 @@ public class MineSweeper {
             }
             if (!node.isBomb()) {
                 node.setBomb(true);
-                randomBombs--;
+                bombsToPlace--;
             }
         }
     }

@@ -13,7 +13,8 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
         int rows = askGridRows();
         int cols = askGridColumns();
         MineSweeperDifficulty difficulty = pickDifficulty();
-        mineSweeper = new MineSweeper(rows, cols, difficulty);
+        int mines = (int)(rows * cols * difficulty.getBombPercentage());
+        mineSweeper = new MineSweeper(rows, cols, mines);
         displayInstructions();
         startGame();
     }
