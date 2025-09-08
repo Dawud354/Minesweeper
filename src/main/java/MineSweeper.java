@@ -30,7 +30,7 @@ public class MineSweeper {
         hideNodesAroundStart(startRow, startCols); // Hide nodes around the starting position
         calculateNearbyBombCounts(); // Update the grid with bomb counts
         floodFill(startRow, startCols); // Flood fill from the starting position
-        System.out.println("Game started! Bombs placed and nearby counts calculated.");
+        //System.out.println("Game started! Bombs placed and nearby counts calculated.");
     }
 
     /**
@@ -45,6 +45,9 @@ public class MineSweeper {
         }
         Node node = mineGrid.getNode(row, col);
         if (node.isRevealed()) {
+            if (node.isBomb()){
+                return MineSweeperMessages.BOMB_AND_REVEALED; // Bomb already revealed
+            }
             return MineSweeperMessages.REVEALED_NODE;
         }
         if (node.isBomb()){

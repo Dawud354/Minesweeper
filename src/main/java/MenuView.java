@@ -19,9 +19,9 @@ public class MenuView {
     private GridPane previewGrid;
     private Label sizeLabel;
     private Label minesLabel;
-    private int gridRows = 9;
-    private int gridCols = 9;
-    private int mineCount = 10;
+    private int gridRows;
+    private int gridCols;
+    private int mineCount;
 
     public MenuView(SceneManager manager) {
         this.manager = manager;
@@ -41,6 +41,12 @@ public class MenuView {
         easy.setOnAction(e -> handleDifficultyChange(easy));
         medium.setOnAction(e -> handleDifficultyChange(medium));
         hard.setOnAction(e -> handleDifficultyChange(hard));
+
+        easy.setSelected(true); // default
+        // Set default values (not most elegant way, but straightforward)
+        gridRows = 9;
+        gridCols = 9;
+        mineCount = 10;
 
         VBox difficultyBox = new VBox(10, new Label("Difficulty:"), easy, medium, hard);
         difficultyBox.setAlignment(Pos.CENTER);
@@ -129,5 +135,5 @@ public class MenuView {
                 previewGrid.add(square, col, row);
             }
         }
-    }   
+    }
 }

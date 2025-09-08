@@ -20,7 +20,7 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
     }
 
     private int askGridRows() {
-        int maxRows = MineGrid.MAX_ROWS;
+        int maxRows = 20;
         print("Enter the number of rows for the mine grid:");
         int rows = inputInt("Enter a number between 1 and "+maxRows+": ");
         while (rows < 1 || rows > 20) {
@@ -30,7 +30,7 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
     }
 
     private int askGridColumns() {
-        int maxCols = MineGrid.MAX_COLS;
+        int maxCols =20;
         print("Enter the number of columns for the mine grid:");
         int rows = inputInt("Enter a number between 1 and "+maxCols+": ");
         while (rows < 1 || rows > 20) {

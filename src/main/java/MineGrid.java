@@ -2,8 +2,6 @@ public class MineGrid {
     private final Node[][] grid;
     private int rows;
     private int cols;
-    public static final int MAX_ROWS = 20;
-    public static final int MAX_COLS = 20;
 
     public MineGrid(int rows, int cols) {
         setRows(rows);
@@ -16,8 +14,8 @@ public class MineGrid {
      *  set rows
      */
     public void setRows(int rows) {
-        if (rows < 1 || rows > MAX_ROWS) {
-            throw new IllegalArgumentException("Rows must be between 1 and " + MAX_ROWS);
+        if (rows < 1) {
+            throw new IllegalArgumentException("Rows must be at least 1");
         }
         this.rows = rows;
     }
@@ -26,8 +24,8 @@ public class MineGrid {
      *  set columns
      */
     public void setCols(int cols) {
-        if (cols < 1 || cols > MAX_COLS) {
-            throw new IllegalArgumentException("Columns must be between 1 and " + MAX_COLS);
+        if (cols < 1) {
+            throw new IllegalArgumentException("Columns must be at least 1");
         }
         this.cols = cols;
     }
