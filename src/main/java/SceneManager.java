@@ -26,18 +26,22 @@ public class SceneManager {
     private MenuBar createMenuBar() {
         MenuBar menuBar = new MenuBar();
 
-        Menu fileMenu = new Menu("File");
+        Menu exitMenu = new Menu("Exit");
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> stage.close());
-        fileMenu.getItems().add(exitItem);
+        exitMenu.getItems().add(exitItem);
 
-        Menu helpMenu = new Menu("Help");
-        MenuItem aboutItem = new MenuItem("About");
-        aboutItem.setOnAction(e -> System.out.println("About clicked"));
-        helpMenu.getItems().add(aboutItem);
+        Menu restartMenu = new Menu("Restart");
+        MenuItem restartItem = new MenuItem("Restart");
+        restartItem.setOnAction(e -> restartGame());
+        restartMenu.getItems().add(restartItem);
 
-        menuBar.getMenus().addAll(fileMenu, helpMenu);
+        menuBar.getMenus().addAll(exitMenu, restartMenu);
         return menuBar;
+    }
+
+    private void restartGame() {
+        showMenu();
     }
 
 
