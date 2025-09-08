@@ -1,0 +1,105 @@
+/* style.css */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* Base start button style */
+.start-button {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #45A049);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20 8 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+
+/* Hover effect */
+.start-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #45A049, #4CAF50);
+}
+
+/* Pressed/clicked effect */
+.start-button:pressed {
+    -fx-background-color: #3e8e41;
+    -fx-padding: 9 21 7 19;
+}
+
+
+
+.square {
+    -fx-border-color: gray;
+    -fx-border-width: 1;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}
+
+/* Style the preview grid itself */
+.preview-grid {
+    -fx-hgap: 2;          /* horizontal gap between cells */
+    -fx-vgap: 2;          /* vertical gap between cells */
+    -fx-padding: 5;       /* padding inside the grid */
+}
+
+.preview-box {
+    -fx-padding: 0 0 20 0;   /* top, right, bottom, left */
+}
+
+/* Section headers like "Details:" or "Preview:" */
+.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 5 0;   /* add space below */
+}
+
+/* Field names like "Size:" and "Mines:" */
+.detail-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+/* Field values like "9 x 9" or "10" */
+.detail-value {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+/* Style the group box */
+.difficulty-box {
+    -fx-spacing: 10;                 /* spacing between radio buttons */
+    -fx-alignment: center;
+    -fx-padding: 10;
+}
+
+
+/* Base radio button style */
+.radio-button {
+    -fx-font-size: 14px;
+    -fx-text-fill: #222222;
+    -fx-padding: 5 10 5 10;
+}
+
+/* When hovered */
+.radio-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+}
+
+/* When selected */
+.radio-button:selected {
+    -fx-font-weight: bold;
+    -fx-text-fill: #0066cc;
+}
+
+

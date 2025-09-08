@@ -38,15 +38,9 @@ public class GameView {
         // --- Add a border/background to the box ---
         instructionBox.setStyle("-fx-border-color: black; -fx-padding: 10; -fx-background-color: #f0f0f0;");
 
-        gameGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         // === Preview Section ===
         createGrid(); // initial preview
-        // StackPane previewWrapper = new StackPane(gameGrid);
-        // previewWrapper.setMaxWidth(Region.USE_PREF_SIZE); // optional
 
-        // VBox previewBox = new VBox(5, previewWrapper);
-        // previewBox.setAlignment(Pos.CENTER);
-        // StackPane root = new StackPane(previewBox);
         statusLabel = new Label("Mines left: " + game.getNumberOfMinesLeft());
         Label timer = new Label("Time: 0s");
         // --- Put labels side by side ---

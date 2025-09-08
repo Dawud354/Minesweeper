@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -25,6 +26,8 @@ public class MenuView {
 
     public MenuView(SceneManager manager) {
         this.manager = manager;
+        sizeLabel = new Label();
+        minesLabel = new Label();
     }
 
     public Parent getView() {
@@ -33,6 +36,10 @@ public class MenuView {
         RadioButton easy = new RadioButton("Beginner");
         RadioButton medium = new RadioButton("Intermediate");
         RadioButton hard = new RadioButton("Expert");
+
+        easy.getStyleClass().add("radio-button");
+        medium.getStyleClass().add("radio-button");
+        hard.getStyleClass().add("radio-button");
 
         easy.setToggleGroup(difficultyGroup);
         medium.setToggleGroup(difficultyGroup);
@@ -48,7 +55,10 @@ public class MenuView {
         gridCols = 9;
         mineCount = 10;
 
-        VBox difficultyBox = new VBox(10, new Label("Difficulty:"), easy, medium, hard);
+        Label difficultyLabel = new Label("Select Difficulty:");
+        difficultyLabel.getStyleClass().add("section-header");
+        VBox difficultyBox = new VBox(10, difficultyLabel, easy, medium, hard);
+        difficultyBox.getStyleClass().add("difficulty-box");
         difficultyBox.setAlignment(Pos.CENTER);
 
         // === Details Section ===
@@ -56,45 +66,79 @@ public class MenuView {
         details.setHgap(10);
         details.setVgap(5);
 
-        sizeLabel = new Label(gridCols + " x " + gridRows);
-        minesLabel = new Label(String.valueOf(mineCount));
-        details.addRow(0, new Label("Size:"), sizeLabel);
-        details.addRow(1, new Label("Mines:"), minesLabel);
+        updateDetails(); // initial details
+        sizeLabel.getStyleClass().add("detail-label");
+        minesLabel.getStyleClass().add("detail-label");
+        details.addRow(0, sizeLabel);
+        details.addRow(1, minesLabel);
         StackPane detailsWrapper = new StackPane(details);
         detailsWrapper.setMaxWidth(Region.USE_PREF_SIZE); // optional: shrink to fit
 
         VBox detailsBox = new VBox(5, new Label("Details:"), detailsWrapper);
+        detailsBox.getStyleClass().add("section-header");
         detailsBox.setAlignment(Pos.CENTER);
 
         // === Preview Section ===
         previewGrid = new GridPane();
-        previewGrid.setHgap(2);
-        previewGrid.setVgap(2);
+        previewGrid.getStyleClass().add("preview-grid");
         updatePreview(); // initial preview
-        StackPane previewWrapper = new StackPane(previewGrid);
-        previewWrapper.setMaxWidth(Region.USE_PREF_SIZE); // optional
-
-        VBox previewBox = new VBox(5, new Label("Preview:"), previewWrapper);
-        previewBox.setAlignment(Pos.CENTER);
+        previewGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         // === Start Button ===
         Button startBtn = new Button("Start Game");
+        startBtn.getStyleClass().add("start-button");
         startBtn.setOnAction(e -> manager.showGame(gridRows, gridCols, mineCount));
+        /*
+         * // === Main content stack ===
+         * VBox content = new VBox(20,
+         * difficultyBox,
+         * new Separator(),
+         * detailsBox,
+         * new Separator(),
+         * previewBox,
+         * new Separator(),
+         * startBtn);
+         * content.setAlignment(Pos.CENTER);
+         * content.setPadding(new Insets(20));
+         * 
+         * // === Root centers content ===
+         * StackPane root = new StackPane(content);
+         * 
+         * 
+         */
 
-        // === Main content stack ===
-        VBox content = new VBox(20,
+        BorderPane root = new BorderPane();
+        root.setPadding(new Insets(20));
+
+        Label previewLabel = new Label("Preview:");
+        previewLabel.getStyleClass().add("section-header");
+        VBox topSection = new VBox(20,
                 difficultyBox,
                 new Separator(),
                 detailsBox,
                 new Separator(),
-                previewBox,
+                previewLabel
+        );
+        topSection.setAlignment(Pos.TOP_CENTER);
+
+
+        VBox middleSection = new VBox(10,
+                previewGrid);
+        middleSection.setAlignment(Pos.CENTER);
+
+        VBox bottomSection = new VBox(20,
                 new Separator(),
                 startBtn);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(20));
+        bottomSection.setAlignment(Pos.BOTTOM_CENTER);
 
-        // === Root centers content ===
-        StackPane root = new StackPane(content);
+        // Place preview in the middle
+        //StackPane previewWrapper = new StackPane(previewGrid);
+        //previewWrapper.setMaxSize(400, 400); // preview won't grow beyond this
+        //previewWrapper.setPrefSize(400, 400);
+
+        root.setTop(topSection);
+        root.setCenter(middleSection);
+        root.setBottom(bottomSection);
 
         return root;
     }
@@ -119,9 +163,13 @@ public class MenuView {
             }
         }
         // Update details and preview based on selection
-        sizeLabel.setText(gridCols + " x " + gridRows);
-        minesLabel.setText(String.valueOf(mineCount));
+        updateDetails();
         updatePreview();
+    }
+
+    private void updateDetails() {
+        sizeLabel.setText("Grid: " + gridCols + " x " + gridRows);
+        minesLabel.setText("Mines: " + String.valueOf(mineCount));
     }
 
     // Optional: method to update the preview grid
@@ -130,8 +178,8 @@ public class MenuView {
         for (int row = 0; row < gridRows; row++) {
             for (int col = 0; col < gridCols; col++) {
                 Region square = new Region();
-                square.setPrefSize(20, 20);
-                square.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
+                //square.setPrefSize(20, 20);
+                square.getStyleClass().add("square");
                 previewGrid.add(square, col, row);
             }
         }
