@@ -58,7 +58,7 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
                 case ("R") -> askRevealPosition();
                 case "F" -> askFlagPosition();
             }
-            if (mineSweeper.areAllNodesRevealed()) {
+            if (mineSweeper.allSafeCellsRevealed()) {
                 gameOver = true;
                 endGame();
             }

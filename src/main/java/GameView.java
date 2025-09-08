@@ -14,6 +14,8 @@ public class GameView {
     private GridPane gameGrid;
     private boolean firstClick;
     private Button[][] buttonGrid;
+    private Label statusLabel;
+    private Label instructionLabel;
 
     public GameView(SceneManager manager, int gridRows, int gridCols, int mineCount) {
         this.manager = manager;
@@ -26,6 +28,17 @@ public class GameView {
 
     public Parent getView() {
 
+
+        // === Instructions Section ===
+        instructionLabel = new Label("Welcome to MineSweeper! Left Click to Reveal, Right Click to Flag/Unflag.");
+        HBox instructionBox = new HBox(20, instructionLabel);
+        instructionBox.setMaxWidth(Region.USE_PREF_SIZE);
+        instructionBox.setAlignment(Pos.CENTER);
+
+        // --- Add a border/background to the box ---
+        instructionBox.setStyle("-fx-border-color: black; -fx-padding: 10; -fx-background-color: #f0f0f0;");
+
+        gameGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         // === Preview Section ===
         createGrid(); // initial preview
         // StackPane previewWrapper = new StackPane(gameGrid);
@@ -34,10 +47,10 @@ public class GameView {
         // VBox previewBox = new VBox(5, previewWrapper);
         // previewBox.setAlignment(Pos.CENTER);
         // StackPane root = new StackPane(previewBox);
-        Label status = new Label("Mines left: " + game.getMineCount());
+        statusLabel = new Label("Mines left: " + game.getNumberOfMinesLeft());
         Label timer = new Label("Time: 0s");
         // --- Put labels side by side ---
-        HBox infoBox = new HBox(20, status, timer);
+        HBox infoBox = new HBox(20, statusLabel, timer);
         infoBox.setMaxWidth(Region.USE_PREF_SIZE);
         infoBox.setAlignment(Pos.CENTER);
 
@@ -46,7 +59,7 @@ public class GameView {
 
         gameGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
-        VBox root = new VBox(10, gameGrid, infoBox);
+        VBox root = new VBox(10, instructionBox, gameGrid, infoBox);
         root.setAlignment(Pos.CENTER);
         return root;
     }
@@ -89,6 +102,9 @@ public class GameView {
         }
         updateGameGrid();
         printGrid();
+        if(game.allSafeCellsRevealed()) {
+            wonGame();
+        }
     }
 
     private void updateGameGrid() {
@@ -136,6 +152,7 @@ public class GameView {
                 System.out.println("Node is already revealed.");
             } else if (message == MineSweeperMessages.BOMB_NODE) {
                 System.out.println("Game Over! You hit a bomb at (" + row + ", " + col + ").");
+                lostGame();
                 // Reveal all nodes and end the game
                 //game.revealAllNodes();
                 cell = "B"; // Bomb revealed
@@ -152,6 +169,28 @@ public class GameView {
         }
     }
 
+    private void lostGame() {
+        game.revealAllNodes();
+        updateGameGrid();
+        // Disable all buttons
+        for (int row = 0; row < game.getRows(); row++) {
+            for (int col = 0; col < game.getCols(); col++) {
+                buttonGrid[row][col].setDisable(true);
+            }
+        }
+        instructionLabel.setText("Game Over! You hit a bomb.");
+    }
+
+    private void wonGame() {
+        // Disable all buttons
+        for (int row = 0; row < game.getRows(); row++) {
+            for (int col = 0; col < game.getCols(); col++) {
+                buttonGrid[row][col].setDisable(true);
+            }
+        }
+        instructionLabel.setText("Congratulations! You've won the game!");
+    }
+
     private void handleRightClick(Button square, int row, int col) {
         // Implement right-click logic (e.g., flag cell)
         System.out.println("Flagging cell at (" + row + ", " + col + ")");
@@ -160,6 +199,8 @@ public class GameView {
             System.out.println("Node is already revealed. Cannot flag.");
         } else {
             System.out.println("Node at (" + row + ", " + col + ") flagged.");
+            statusLabel.setText("Mines left: " + game.getNumberOfMinesLeft());
+            // Update button text to show flag
         }
     }
 

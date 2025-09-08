@@ -3,6 +3,7 @@ import java.util.Queue;
 public class MineSweeper {
     private MineGrid mineGrid;
     private int mineCount;
+    private int numberOfFlags;
 
 
     /**
@@ -15,6 +16,7 @@ public class MineSweeper {
     public MineSweeper(int rows, int cols, int mineCount) {
         mineGrid = new MineGrid(rows, cols);
         this.mineCount = mineCount;
+        this.numberOfFlags = 0;
         System.out.println("MineSweeper grid created with " + mineGrid.getRows() + " rows and " + mineGrid.getCols() + " columns.");
     }
 
@@ -85,9 +87,13 @@ public class MineSweeper {
             return MineSweeperMessages.REVEALED_NODE; // Cannot flag a revealed node
         }
         node.setFlagged(!node.isFlagged()); // Toggle the flagged state
+
         if (node.isFlagged()) {
+            this.numberOfFlags++;
             return MineSweeperMessages.FLAGGED_NODE; // Node is now flagged
+            
         } else {
+            this.numberOfFlags--;
             return MineSweeperMessages.UNFLAGGED_NODE; // Node is now unflagged
         }
     }
@@ -320,7 +326,7 @@ public class MineSweeper {
     /**
      * Checks to see if all nodes have been revealed.
      */
-    public boolean areAllNodesRevealed() {
+    public boolean allSafeCellsRevealed() {
         for (int i = 0; i < mineGrid.getRows(); i++) {
             for (int j = 0; j < mineGrid.getCols(); j++) {
                 Node node = mineGrid.getNode(i, j);
@@ -347,5 +353,20 @@ public class MineSweeper {
      */
     public int getMineCount() {
         return mineCount;
+    }
+
+    /**
+     * Gets the number of flags currently placed.
+     * @return number of flags
+     */    public int getNumberOfFlags() {
+        return numberOfFlags;
+    }
+
+    /**
+     * Gets the number of mines left (mines - flags).
+     * @return number of mines left
+     */
+    public int getNumberOfMinesLeft() {
+        return mineCount - numberOfFlags;
     }
 }
