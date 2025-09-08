@@ -124,13 +124,12 @@ public class MineSweeper {
             } else {
                 messages = MineSweeperMessages.REVEALED_NODE;
             }
-        }
-        else if (node.isBomb()) {
+        } else if (node.isFlagged()) {
+            return MineSweeperMessages.FLAGGED_NODE;
+        } else if (node.isBomb()) {
             return MineSweeperMessages.BOMB_AND_HIDDEN;
         }
-        else if (node.isFlagged()) {
-            return MineSweeperMessages.FLAGGED_NODE;
-        }
+
         return messages;
     }
 
@@ -340,5 +339,13 @@ public class MineSweeper {
         int rows = mineGrid.getRows();
         int cols = mineGrid.getCols();
         mineGrid = new MineGrid(rows, cols);
+    }
+
+    /**
+     * Gets the number of mines in the grid.
+     * @return number of mines
+     */
+    public int getMineCount() {
+        return mineCount;
     }
 }

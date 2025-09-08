@@ -112,7 +112,7 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
             gameOver = true;
         } else if (message == MineSweeperMessages.NODE_NOW_REVEALED){
             int bombs = mineSweeper.howManyBombsNearbyTile(rowCol[0], rowCol[1]);
-            print("Node at (" + coordinates+ ") revealed. Bombs nearby: " + bombs);
+            print("Node at (" + coordinates + ") revealed. Bombs nearby: " + bombs);
         }else {
             print("There was an error revealing the node at (" + coordinates + ").");
         }
