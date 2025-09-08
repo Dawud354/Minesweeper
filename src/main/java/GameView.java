@@ -124,6 +124,11 @@ public class GameView {
             firstClick = false;
         } else {
             System.out.println("Cell clicked at (" + row + ", " + col + ")");
+            // check if node is flagged and then ignore left click
+            if (game.getNode(row, col) == MineSweeperMessages.FLAGGED_NODE) {
+                System.out.println("Node is flagged. Cannot reveal.");
+                return;
+            }
             // Implement game logic here
             MineSweeperMessages message = game.revealNode(row, col); // Use row, col here
             String cell = "/";
