@@ -3,6 +3,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.MouseButton;
@@ -116,22 +117,39 @@ public class GameView {
             for (int col = 0; col < game.getCols(); col++) {
                 MineSweeperMessages message = game.getNode(row, col); // Use row, col here
                 String cell;
+                Color color = Color.BLACK; // Default color
                 if (message == MineSweeperMessages.BOMB_AND_REVEALED) {
                     cell = "B"; // Bomb revealed
                 } else if (message == MineSweeperMessages.FLAGGED_NODE) {
                     cell = "F";
                 } else if (message == MineSweeperMessages.REVEALED_NODE) {
                     int bombsNearby = game.howManyBombsNearbyTile(row, col);
+                    color = getColorForNumber(bombsNearby);
                     cell = String.valueOf(bombsNearby); // Empty or number of bombs nearby
                 } else {
                     cell = "";
                 }
                 buttonGrid[row][col].setText(cell);
+                buttonGrid[row][col].setTextFill(color);
                 if (message == MineSweeperMessages.REVEALED_NODE || message == MineSweeperMessages.BOMB_AND_REVEALED) {
                     buttonGrid[row][col].setDisable(true); // Disable button if revealed
                 }
             }
         }
+    }
+
+    private Color getColorForNumber(int number) {
+        return switch (number) {
+            case 1 -> Color.BLUE;
+            case 2 -> Color.GREEN;
+            case 3 -> Color.RED;
+            case 4 -> Color.DARKBLUE;
+            case 5 -> Color.BROWN;
+            case 6 -> Color.CYAN;
+            case 7 -> Color.BLACK;
+            case 8 -> Color.GRAY;
+            default -> Color.BLACK; // fallback
+        };
     }
 
     private void handleLeftClick(Button square, int row, int col) {

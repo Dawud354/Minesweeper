@@ -40,6 +40,7 @@
     -fx-font-size: 11px;
     -fx-pref-width: 25px;
     -fx-pref-height: 25px;
+    -fx-font-weight: bold;
 }
 
 .square:hover {
@@ -49,8 +50,10 @@
 
 .square:disabled {
     -fx-background-color: #f0f0f0;
-    -fx-text-fill: #a0a0a0;
     -fx-cursor: default;
+    -fx-text-fill: inherit;  /* keep your set color */
+    -fx-opacity: 1.0;   /* stop fading */
+
 }
 
 
