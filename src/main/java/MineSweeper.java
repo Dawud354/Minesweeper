@@ -4,6 +4,7 @@ public class MineSweeper {
     private MineGrid mineGrid;
     private int mineCount;
     private int numberOfFlags;
+    private MineSweeperMessages gameStatus;
 
 
     /**
@@ -17,7 +18,6 @@ public class MineSweeper {
         mineGrid = new MineGrid(rows, cols);
         this.mineCount = mineCount;
         this.numberOfFlags = 0;
-        System.out.println("MineSweeper grid created with " + mineGrid.getRows() + " rows and " + mineGrid.getCols() + " columns.");
     }
 
     /**
@@ -26,6 +26,7 @@ public class MineSweeper {
      * @param startCols starting column for the game
      */
     public void startGame(int startRow, int startCols) {
+        this.numberOfFlags = 0;
         clearGrid(); // Clear the grid before starting a new game
         revealNodesAroundStart(startRow, startCols); // Reveal nodes around the starting position
         populateGridWithBombs(); // Randomly place bombs in the grid
@@ -53,10 +54,12 @@ public class MineSweeper {
             return MineSweeperMessages.REVEALED_NODE;
         }
         if (node.isBomb()){
+            gameStatus = MineSweeperMessages.GAME_OVER;
             node.setRevealed(true); // Reveal the bomb node
             return MineSweeperMessages.BOMB_NODE;
         }
         floodFill(row, col); // Reveal surrounding nodes if the current node is not a bomb
+        isGameWon(); // Check if the game is won after revealing a node
         return MineSweeperMessages.NODE_NOW_REVEALED;
     }
 
@@ -319,24 +322,22 @@ public class MineSweeper {
                 }
             }
         }
-
-
     }
 
-    /**
-     * Checks to see if all nodes have been revealed.
-     */
-    public boolean allSafeCellsRevealed() {
-        for (int i = 0; i < mineGrid.getRows(); i++) {
-            for (int j = 0; j < mineGrid.getCols(); j++) {
+    private void isGameWon() {
+        int rows = mineGrid.getRows();
+        int cols = mineGrid.getCols();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 Node node = mineGrid.getNode(i, j);
-                if (!node.isRevealed() && !node.isBomb()) {
-                    return false; // Found a non-revealed node that is not a bomb
+                if (!node.isBomb() && !node.isRevealed()) {
+                    return; // Found a non-bomb node that is not revealed
                 }
             }
         }
-        return true; // All nodes are revealed or are bombs
+        gameStatus = MineSweeperMessages.GAME_WON;
     }
+
 
     /**
      * Resets the grid by making a new instance with same dimensions.
@@ -368,5 +369,13 @@ public class MineSweeper {
      */
     public int getNumberOfMinesLeft() {
         return mineCount - numberOfFlags;
+    }
+
+    /**
+     * Checks if the game is over (a bomb has been revealed).
+     * @return true if game is over, false otherwise
+     */
+    public MineSweeperMessages getGameStatus() {
+        return gameStatus;
     }
 }

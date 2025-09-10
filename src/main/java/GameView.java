@@ -106,7 +106,7 @@ public class GameView {
         }
         updateGameGrid();
         printGrid();
-        if(game.allSafeCellsRevealed()) {
+        if(game.getGameStatus() == MineSweeperMessages.GAME_WON) {
             wonGame();
         }
     }
@@ -152,13 +152,11 @@ public class GameView {
             // Implement game logic here
             MineSweeperMessages message = game.revealNode(row, col); // Use row, col here
             String cell = "/";
-            if (message == MineSweeperMessages.REVEALED_NODE) {
-                System.out.println("Node is already revealed.");
-            } else if (message == MineSweeperMessages.BOMB_NODE) {
-                System.out.println("Game Over! You hit a bomb at (" + row + ", " + col + ").");
-                lostGame();
-                // Reveal all nodes and end the game
-                //game.revealAllNodes();
+            if (message == MineSweeperMessages.BOMB_NODE) {
+                if (game.getGameStatus() == MineSweeperMessages.GAME_OVER) {
+                    System.out.println("Game Over! You hit a bomb at (" + row + ", " + col + ").");
+                    lostGame();
+                }
                 cell = "B"; // Bomb revealed
             } else if (message == MineSweeperMessages.NODE_NOW_REVEALED) {
                 int bombs = game.howManyBombsNearbyTile(row, col);
@@ -186,6 +184,7 @@ public class GameView {
     }
 
     private void wonGame() {
+        game.revealAllNodes();
         // Disable all buttons
         for (int row = 0; row < game.getRows(); row++) {
             for (int col = 0; col < game.getCols(); col++) {
