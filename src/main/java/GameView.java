@@ -6,7 +6,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.MouseButton;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -19,6 +18,7 @@ public class GameView {
     private Button[][] buttonGrid;
     private Label statusLabel;
     private Label instructionLabel;
+    private GameTimer gameTimer;
 
     public GameView(SceneManager manager, int gridRows, int gridCols, int mineCount) {
         this.manager = manager;
@@ -43,11 +43,11 @@ public class GameView {
         gameGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         statusLabel = new Label("Mines left: " + game.getNumberOfMinesLeft());
-        Label timer = new Label("Time: 0s");
+        gameTimer = new GameTimer();
         statusLabel.getStyleClass().add("detail-label");
-        timer.getStyleClass().add("detail-label");
+        //timer.getStyleClass().add("detail-label");
         // --- Put labels side by side ---
-        HBox infoBox = new HBox(20, statusLabel, timer);
+        HBox infoBox = new HBox(20, statusLabel, gameTimer);
         infoBox.setMaxWidth(Region.USE_PREF_SIZE);
         infoBox.setAlignment(Pos.CENTER);
         infoBox.getStyleClass().add("game-view-box");
@@ -141,6 +141,7 @@ public class GameView {
 
         if (firstClick) {
             game.startGame(row, col); // Place bombs and calculate counts on first click
+            gameTimer.start(); // Start the timer on first click
             firstClick = false;
         } else {
             System.out.println("Cell clicked at (" + row + ", " + col + ")");
@@ -172,6 +173,7 @@ public class GameView {
     }
 
     private void lostGame() {
+        gameTimer.stop();
         updateGameGrid();
         // Disable all buttons
         for (int row = 0; row < game.getRows(); row++) {
@@ -183,6 +185,7 @@ public class GameView {
     }
 
     private void wonGame() {
+        gameTimer.stop();
         // Disable all buttons
         updateGameGrid();
         for (int row = 0; row < game.getRows(); row++) {

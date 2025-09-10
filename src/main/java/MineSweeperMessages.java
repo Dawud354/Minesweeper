@@ -2,6 +2,7 @@ public enum MineSweeperMessages {
     INVALID_COORDINATES("Coordinates out of bounds"),
     GAME_OVER("Game Over"),
     GAME_WON("All tiles revealed"),
+    GAME_ONGOING("Game is ongoing"),
     INVALID_MOVE("Invalid move. Please try again."),
     FLAGGED_NODE("Node is flagged. Cannot reveal."),
     REVEALED_NODE("Node is already revealed."),
