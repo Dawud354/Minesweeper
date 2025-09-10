@@ -1,6 +1,7 @@
 /* style.css */
 .root {
     -fx-font-family: "Segoe UI", sans-serif;
+    -fx-focus-color: transparent;
 }
 
 .header {
@@ -31,26 +32,42 @@
     -fx-padding: 9 21 7 19;
 }
 
-
-
 .square {
     -fx-border-color: gray;
     -fx-border-width: 1;
+    -fx-focus-color: transparent;
     -fx-alignment: center;
-    -fx-font-size: 14px;
-    -fx-pref-width: 30px;
-    -fx-pref-height: 30px;
+    -fx-font-size: 11px;
+    -fx-pref-width: 25px;
+    -fx-pref-height: 25px;
 }
+
+.square:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-cursor: hand;
+}
+
+.square:disabled {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #a0a0a0;
+    -fx-cursor: default;
+}
+
+
 
 /* Style the preview grid itself */
 .preview-grid {
-    -fx-hgap: 2;          /* horizontal gap between cells */
-    -fx-vgap: 2;          /* vertical gap between cells */
-    -fx-padding: 5;       /* padding inside the grid */
+    -fx-hgap: 2;
+    /* horizontal gap between cells */
+    -fx-vgap: 2;
+    /* vertical gap between cells */
+    -fx-padding: 5;
+    /* padding inside the grid */
 }
 
 .preview-box {
-    -fx-padding: 0 0 20 0;   /* top, right, bottom, left */
+    -fx-padding: 0 0 20 0;
+    /* top, right, bottom, left */
 }
 
 /* Section headers like "Details:" or "Preview:" */
@@ -58,7 +75,8 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
-    -fx-padding: 0 0 5 0;   /* add space below */
+    -fx-padding: 0 0 5 0;
+    /* add space below */
 }
 
 /* Field names like "Size:" and "Mines:" */
@@ -76,7 +94,8 @@
 
 /* Style the group box */
 .difficulty-box {
-    -fx-spacing: 10;                 /* spacing between radio buttons */
+    -fx-spacing: 10;
+    /* spacing between radio buttons */
     -fx-alignment: center;
     -fx-padding: 10;
 }
@@ -102,4 +121,20 @@
     -fx-text-fill: #0066cc;
 }
 
+.game-view-box {
+    -fx-border-color: black;
+    -fx-padding: 10;
+    fx-spacing: 8;                /* if the control supports spacing (HBox/VBox) */
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.bottom-section {
+    -fx-padding: 0 0 20 0;   /* top right bottom left */
+}
+
+.top-section {
+    -fx-padding: 20 0 0 0;   /* top right bottom left */
+}
 

@@ -19,7 +19,7 @@ public class SceneManager {
         root = new BorderPane();
         root.setTop(createMenuBar());
 
-        scene = new Scene(root, 800, 600);
+        scene = new Scene(root, 800, 800);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
     }

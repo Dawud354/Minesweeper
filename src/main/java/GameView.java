@@ -1,9 +1,12 @@
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.input.MouseButton;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -27,34 +30,48 @@ public class GameView {
     }
 
     public Parent getView() {
-
-
         // === Instructions Section ===
         instructionLabel = new Label("Welcome to MineSweeper! Left Click to Reveal, Right Click to Flag/Unflag.");
+        instructionLabel.getStyleClass().add("section-header");
         HBox instructionBox = new HBox(20, instructionLabel);
         instructionBox.setMaxWidth(Region.USE_PREF_SIZE);
         instructionBox.setAlignment(Pos.CENTER);
+        instructionBox.getStyleClass().add("game-view-box");
 
-        // --- Add a border/background to the box ---
-        instructionBox.setStyle("-fx-border-color: black; -fx-padding: 10; -fx-background-color: #f0f0f0;");
-
-        // === Preview Section ===
+        // === Grid Section ===
         createGrid(); // initial preview
+        gameGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         statusLabel = new Label("Mines left: " + game.getNumberOfMinesLeft());
         Label timer = new Label("Time: 0s");
+        statusLabel.getStyleClass().add("detail-label");
+        timer.getStyleClass().add("detail-label");
         // --- Put labels side by side ---
         HBox infoBox = new HBox(20, statusLabel, timer);
         infoBox.setMaxWidth(Region.USE_PREF_SIZE);
         infoBox.setAlignment(Pos.CENTER);
+        infoBox.getStyleClass().add("game-view-box");
 
-        // --- Add a border/background to the box ---
-        infoBox.setStyle("-fx-border-color: black; -fx-padding: 10; -fx-background-color: #f0f0f0;");
+        BorderPane root = new BorderPane();
+        VBox topSection = new VBox(10, instructionBox, new Separator());
+        VBox centerSection = new VBox(10, gameGrid);
+        VBox bottomSection = new VBox(10, new Separator(), infoBox);
 
-        gameGrid.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        topSection.getStyleClass().add("top-section");
+        bottomSection.getStyleClass().add("bottom-section");
 
-        VBox root = new VBox(10, instructionBox, gameGrid, infoBox);
-        root.setAlignment(Pos.CENTER);
+
+        //topSection.getStyleClass().add("game-view-box");
+        //centerSection.getStyleClass().add("game-view-box");
+        //bottomSection.getStyleClass().add("game-view-box");
+
+        topSection.setAlignment(Pos.CENTER);
+        centerSection.setAlignment(Pos.CENTER);
+        bottomSection.setAlignment(Pos.CENTER);
+
+        root.setCenter(centerSection);
+        root.setTop(topSection);
+        root.setBottom(bottomSection);
         return root;
     }
 
@@ -65,15 +82,8 @@ public class GameView {
         for (int row = 0; row < game.getRows(); row++) {
             for (int col = 0; col < game.getCols(); col++) {
                 Button square = new Button();
-                square.setPrefSize(30, 30);
-                square.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
-                // --- Hover detection ---
-                square.setOnMouseEntered(e -> {
-                    square.setStyle("-fx-border-color: black; -fx-background-color: yellow;");
-                });
-                square.setOnMouseExited(e -> {
-                    square.setStyle("-fx-border-color: black; -fx-background-color: lightgray;");
-                });
+                square.setFocusTraversable(false);
+                square.getStyleClass().add("square");
                 square.setUserData(new int[] { row, col }); // Store row and col in user data
                 square.setOnMouseClicked(e -> handleCellClick(e.getButton(), square));
                 buttonGrid[row][col] = square;
