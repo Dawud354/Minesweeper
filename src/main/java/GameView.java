@@ -6,6 +6,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -20,6 +22,9 @@ public class GameView {
     private Label statusLabel;
     private Label instructionLabel;
     private GameTimer gameTimer;
+    private final Image flagImage = new Image(getClass().getResource("/assets/images/flag.png").toExternalForm());
+    private final Image bombImage = new Image(getClass().getResource("/assets/images/mine.png").toExternalForm());
+
 
     public GameView(SceneManager manager, int gridRows, int gridCols, int mineCount) {
         this.manager = manager;
@@ -87,6 +92,7 @@ public class GameView {
                 square.getStyleClass().add("square");
                 square.setUserData(new int[] { row, col }); // Store row and col in user data
                 square.setOnMouseClicked(e -> handleCellClick(e.getButton(), square));
+                square.setMaxSize(25,25);
                 buttonGrid[row][col] = square;
                 gameGrid.add(square, col, row);
             }
@@ -116,13 +122,14 @@ public class GameView {
         for (int row = 0; row < game.getRows(); row++) {
             for (int col = 0; col < game.getCols(); col++) {
                 MineSweeperMessages message = game.getNode(row, col); // Use row, col here
-                String cell;
-                Color color = Color.BLACK; // Default color
-                if (message == MineSweeperMessages.BOMB_AND_REVEALED) {
-                    cell = "B"; // Bomb revealed
-                } else if (message == MineSweeperMessages.FLAGGED_NODE) {
-                    cell = "F";
-                } else if (message == MineSweeperMessages.REVEALED_NODE) {
+                if (message == MineSweeperMessages.EMPTY_NODE || message == MineSweeperMessages.BOMB_AND_HIDDEN) {
+                    buttonGrid[row][col].setText("");
+                    buttonGrid[row][col].setGraphic(null); // Remove any graphic
+                }
+                if (message == MineSweeperMessages.REVEALED_NODE){
+                    String cell;
+                    Color color = Color.BLACK; // Default color
+                    buttonGrid[row][col].setGraphic(null); // Remove any graphic
                     int bombsNearby = game.howManyBombsNearbyTile(row, col);
                     color = getColorForNumber(bombsNearby);
                     if (bombsNearby == 0) {
@@ -130,11 +137,20 @@ public class GameView {
                     } else {
                         cell = String.valueOf(bombsNearby); // Show number of bombs nearby
                     }
-                } else {
-                    cell = "";
+                    buttonGrid[row][col].setText(cell);
+                    buttonGrid[row][col].setTextFill(color);
                 }
-                buttonGrid[row][col].setText(cell);
-                buttonGrid[row][col].setTextFill(color);
+                if (message == MineSweeperMessages.BOMB_AND_REVEALED) {
+                    ImageView bombView = new ImageView(bombImage);
+                    bombView.setFitWidth(20);
+                    bombView.setFitHeight(20);
+                    buttonGrid[row][col].setGraphic(bombView);
+                } else if (message == MineSweeperMessages.FLAGGED_NODE) {
+                    ImageView flagView = new ImageView(flagImage);
+                    flagView.setFitWidth(20);
+                    flagView.setFitHeight(20);
+                    buttonGrid[row][col].setGraphic(flagView);
+                }
                 if (message == MineSweeperMessages.REVEALED_NODE || message == MineSweeperMessages.BOMB_AND_REVEALED) {
                     buttonGrid[row][col].setDisable(true); // Disable button if revealed
                 }
@@ -174,13 +190,12 @@ public class GameView {
             }
             // Implement game logic here
             MineSweeperMessages message = game.revealNode(row, col); // Use row, col here
-            String cell = "/";
+            String cell = "";
             if (message == MineSweeperMessages.BOMB_NODE) {
                 if (game.getGameStatus() == MineSweeperMessages.GAME_OVER) {
                     System.out.println("Game Over! You hit a bomb at (" + row + ", " + col + ").");
                     lostGame();
                 }
-                cell = "B"; // Bomb revealed
             } else if (message == MineSweeperMessages.NODE_NOW_REVEALED) {
                 int bombs = game.howManyBombsNearbyTile(row, col);
                 System.out.println("Node at (" + row + ", " + col + ") revealed. Bombs nearby: " + bombs);

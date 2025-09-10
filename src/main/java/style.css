@@ -37,10 +37,11 @@
     -fx-border-width: 1;
     -fx-focus-color: transparent;
     -fx-alignment: center;
-    -fx-font-size: 11px;
+    -fx-font-size: 20px;
     -fx-pref-width: 25px;
     -fx-pref-height: 25px;
     -fx-font-weight: bold;
+    -fx-padding: 0;
 }
 
 .square:hover {
