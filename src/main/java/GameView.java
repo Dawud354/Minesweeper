@@ -172,7 +172,6 @@ public class GameView {
     }
 
     private void lostGame() {
-        game.revealAllNodes();
         updateGameGrid();
         // Disable all buttons
         for (int row = 0; row < game.getRows(); row++) {
@@ -184,8 +183,8 @@ public class GameView {
     }
 
     private void wonGame() {
-        game.revealAllNodes();
         // Disable all buttons
+        updateGameGrid();
         for (int row = 0; row < game.getRows(); row++) {
             for (int col = 0; col < game.getCols(); col++) {
                 buttonGrid[row][col].setDisable(true);

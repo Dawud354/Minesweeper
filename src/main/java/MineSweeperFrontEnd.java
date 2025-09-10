@@ -108,7 +108,6 @@ public class MineSweeperFrontEnd extends BaseTextProgram {
             print("Game Over! You hit a bomb at (" + coordinates + ").");
             printGrid();
             // Reveal all nodes and end the game
-            mineSweeper.revealAllNodes();
             gameOver = true;
         } else if (message == MineSweeperMessages.NODE_NOW_REVEALED){
             int bombs = mineSweeper.howManyBombsNearbyTile(rowCol[0], rowCol[1]);

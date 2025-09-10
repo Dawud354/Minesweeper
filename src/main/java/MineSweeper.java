@@ -56,6 +56,7 @@ public class MineSweeper {
         if (node.isBomb()){
             gameStatus = MineSweeperMessages.GAME_OVER;
             node.setRevealed(true); // Reveal the bomb node
+            revealAllOnLoss(); // Reveal all bombs when the game is lost
             return MineSweeperMessages.BOMB_NODE;
         }
         floodFill(row, col); // Reveal surrounding nodes if the current node is not a bomb
@@ -64,13 +65,29 @@ public class MineSweeper {
     }
 
     /**
-     * Reveals all nodes in the grid.
+     * Reveals all nodes in the grid when player lost.
      */
-    public void revealAllNodes() {
+    private void revealAllOnLoss() {
         for (int i = 0; i < mineGrid.getRows(); i++) {
             for (int j = 0; j < mineGrid.getCols(); j++) {
                 Node node = mineGrid.getNode(i, j);
-                node.setRevealed(true);
+                if (node.isBomb()) {
+                    node.setRevealed(true);
+                }
+            }
+        }
+    }
+
+        /**
+     * Reveals all nodes in the grid.
+     */
+    private void revealAllOnWin() {
+        for (int i = 0; i < mineGrid.getRows(); i++) {
+            for (int j = 0; j < mineGrid.getCols(); j++) {
+                Node node = mineGrid.getNode(i, j);
+                if (node.isBomb()){
+                    node.setFlagged(true);
+                }
             }
         }
     }
@@ -336,6 +353,7 @@ public class MineSweeper {
             }
         }
         gameStatus = MineSweeperMessages.GAME_WON;
+        revealAllOnWin(); // Reveal all nodes when the game is won
     }
 
 
