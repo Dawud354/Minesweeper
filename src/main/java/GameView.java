@@ -125,7 +125,11 @@ public class GameView {
                 } else if (message == MineSweeperMessages.REVEALED_NODE) {
                     int bombsNearby = game.howManyBombsNearbyTile(row, col);
                     color = getColorForNumber(bombsNearby);
-                    cell = String.valueOf(bombsNearby); // Empty or number of bombs nearby
+                    if (bombsNearby == 0) {
+                        cell = ""; // Empty cell for 0 bombs nearby
+                    } else {
+                        cell = String.valueOf(bombsNearby); // Show number of bombs nearby
+                    }
                 } else {
                     cell = "";
                 }
