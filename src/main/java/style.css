@@ -11,7 +11,7 @@
 
 /* Base start button style */
 .start-button {
-    -fx-background-color: linear-gradient(to bottom, #4CAF50, #45A049);
+    -fx-background-color: linear-gradient(to bottom, #4FC3F7, #29B6F6); /* light sky blue to deeper blue */
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -19,18 +19,21 @@
     -fx-background-radius: 8;
     -fx-border-radius: 8;
     -fx-cursor: hand;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 4,0,0,2 );
 }
 
 /* Hover effect */
 .start-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #45A049, #4CAF50);
+    -fx-background-color: linear-gradient(to bottom, #29B6F6, #0288D1); /* deeper blue gradient */
 }
 
 /* Pressed/clicked effect */
 .start-button:pressed {
-    -fx-background-color: #3e8e41;
-    -fx-padding: 9 21 7 19;
+    -fx-background-color: #0277BD; /* strong pressed blue */
+    -fx-padding: 9 21 7 19; /* subtle "pressed in" look */
 }
+
+
 
 .square {
     -fx-border-color: gray;
@@ -42,6 +45,7 @@
     -fx-pref-height: 25px;
     -fx-font-weight: bold;
     -fx-padding: 0;
+    -fx-background-color: #bdbdbd; /* medium grey (normal) */
 }
 
 .square:hover {
@@ -127,12 +131,14 @@
 
 .game-view-box {
     -fx-border-color: black;
+    -fx-border-width: 1;
     -fx-padding: 10;
-    fx-spacing: 8;                /* if the control supports spacing (HBox/VBox) */
-    -fx-background-color: #f0f0f0;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+    -fx-spacing: 8;               /* spacing for VBox/HBox */
+    -fx-background-color: #E3F2FD; /* very light sky blue */
+    -fx-background-radius: 0;     /* no rounded corners */
+    -fx-border-radius: 0;
 }
+
 
 .bottom-section {
     -fx-padding: 0 0 20 0;   /* top right bottom left */
@@ -142,3 +148,51 @@
     -fx-padding: 20 0 0 0;   /* top right bottom left */
 }
 
+
+/* MenuBar background (subtle, flat light blue) */
+.menu-bar {
+    -fx-background-color: #E3F2FD;  /* very light sky blue */
+    -fx-padding: 4;
+    -fx-background-radius: 0;  /* no rounding */
+    -fx-border-radius: 0;
+    -fx-effect: none;  /* flat style */
+    -fx-border-color: #B0BEC5; /* subtle grey border */
+}
+
+/* Top-level menu text */
+.menu-bar .label {
+    -fx-text-fill: #0277BD;   /* medium blue text */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Hovered menu item (top-level) */
+.menu:hover {
+    -fx-background-color: #90CAF9; /* flat blue hover */
+    -fx-cursor: hand;
+}
+
+.menu:showing {
+    -fx-background-color: #90CAF9; /* flat blue for active/open menu */
+    -fx-text-fill: white;
+}
+
+
+/* Dropdown menu background */
+.context-menu {
+    -fx-background-color: #FAFAFA; /* light neutral background */
+    -fx-border-color: #B0BEC5;
+}
+
+/* Dropdown menu items */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-font-size: 13px;
+}
+
+/* Hover effect for dropdown items */
+.menu-item:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #64B5F6; /* flat stronger blue */
+}
