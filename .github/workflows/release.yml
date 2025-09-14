@@ -40,10 +40,10 @@ jobs:
           jpackage `
             --type exe `
             --input target `
-            --main-jar Minesweeper-$env:VERSION.jar `
+            --main-jar "Minesweeper-$env:VERSION.jar" `
             --main-class Main `
-            --name Minesweeper-$env:VERSION `
-            --app-version $env:VERSION `
+            --name "Minesweeper-$env:VERSION" `
+            --app-version "$env:VERSION" `
             --java-options "--enable-preview" `
             --dest target
         shell: pwsh
