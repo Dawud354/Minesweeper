@@ -1,4 +1,4 @@
-name: Cross Platform Release
+name: Windows Release Only
 
 on:
   push:
@@ -9,10 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -34,51 +31,23 @@ jobs:
       - name: Rename jar for jpackage
         run: mv target/minesweeper-1.0-SNAPSHOT.jar target/Minesweeper-${{ env.VERSION }}.jar
 
-      # Linux .deb
-      - name: Package with jpackage (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          jpackage \
-            --input target \
-            --main-jar Minesweeper-${{ env.VERSION }}.jar \
-            --main-class Main \
-            --name Minesweeper \
-            --type deb \
-            --java-options "--enable-preview"
-          mv *.deb Minesweeper-${{ env.VERSION }}-linux.deb
-
-      # Windows .exe
-      - name: Package with jpackage (Windows)
-        if: matrix.os == 'windows-latest'
+      # Package Windows portable exe
+      - name: Package portable .exe (Windows)
         run: |
           jpackage `
+            --type app-image `
             --input target `
             --main-jar Minesweeper-${{ env.VERSION }}.jar `
             --main-class Main `
             --name Minesweeper `
-            --type exe `
             --java-options "--enable-preview"
           Rename-Item -Path (Get-ChildItem *.exe) -NewName "Minesweeper-${{ env.VERSION }}-win.exe"
-      # macOS .dmg
-      - name: Package with jpackage (macOS)
-        if: matrix.os == 'macos-latest'
-        run: |
-          jpackage \
-            --input target \
-            --main-jar Minesweeper-${{ env.VERSION }}.jar \
-            --main-class Main \
-            --name Minesweeper \
-            --type dmg \
-            --java-options "--enable-preview"
-          mv *.dmg Minesweeper-${{ env.VERSION }}-mac.dmg
 
       - name: Upload artifacts to Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            Minesweeper-${{ env.VERSION }}.jar
-            Minesweeper-${{ env.VERSION }}-win.exe
-            Minesweeper-${{ env.VERSION }}-mac.dmg
-            Minesweeper-${{ env.VERSION }}-linux.deb
+            target/Minesweeper-${{ env.VERSION }}.jar
+            target/Minesweeper-${{ env.VERSION }}-win.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
