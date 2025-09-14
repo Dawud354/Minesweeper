@@ -51,12 +51,12 @@ jobs:
       - name: Package with jpackage (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          jpackage ^
-            --input target ^
-            --main-jar Minesweeper-${env:VERSION}.jar ^
-            --main-class Main ^
-            --name Minesweeper ^
-            --type exe ^
+          jpackage `
+            --input target `
+            --main-jar Minesweeper-${{ env.VERSION }}.jar `
+            --main-class Main `
+            --name Minesweeper `
+            --type exe `
             --java-options "--enable-preview"
           ren *.exe Minesweeper-${{ env.VERSION }}-win.exe
 
