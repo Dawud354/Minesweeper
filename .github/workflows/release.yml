@@ -42,7 +42,7 @@ jobs:
             --input target `
             --main-jar "Minesweeper-$env:VERSION.jar" `
             --main-class Main `
-            --name "Minesweeper-$env:VERSION" `
+            --name "Minesweeper" `
             --app-version "$env:VERSION" `
             --java-options "--enable-preview" `
             --dest target
