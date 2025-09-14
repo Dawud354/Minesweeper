@@ -43,6 +43,10 @@ jobs:
             --java-options "--enable-preview" `
             --dest target
 
+      # List target folder to check what jpackage produced
+      - name: List target folder
+        run: dir target
+
       - name: Upload artifacts to Release
         uses: softprops/action-gh-release@v1
         with:
