@@ -1,18 +1,13 @@
-name: Cross Platform Release
+name: Build Jar Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "v*"
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -28,58 +23,15 @@ jobs:
         id: set_version
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
 
-      - name: Build shaded jar
+      - name: Build jar
         run: mvn -B clean package
 
-      - name: Rename jar for jpackage
+      - name: Rename jar
         run: mv target/minesweeper-1.0-SNAPSHOT.jar target/Minesweeper-${{ env.VERSION }}.jar
 
-      # Linux .deb
-      - name: Package with jpackage (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          jpackage \
-            --input target \
-            --main-jar Minesweeper-${{ env.VERSION }}.jar \
-            --main-class Main \
-            --name Minesweeper \
-            --type deb \
-            --java-options "--enable-preview"
-          mv *.deb Minesweeper-${{ env.VERSION }}-linux.deb
-
-      # Windows .exe
-      - name: Package with jpackage (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          jpackage `
-            --input target `
-            --main-jar Minesweeper-${env:VERSION}.jar `
-            --main-class Main `
-            --name Minesweeper `
-            --type exe `
-            --java-options "--enable-preview"
-          Rename-Item *.exe target/Minesweeper-${env:VERSION}-win.exe
-
-      # macOS .dmg
-      - name: Package with jpackage (macOS)
-        if: matrix.os == 'macos-latest'
-        run: |
-          jpackage \
-            --input target \
-            --main-jar Minesweeper-${{ env.VERSION }}.jar \
-            --main-class Main \
-            --name Minesweeper \
-            --type dmg \
-            --java-options "--enable-preview"
-          mv *.dmg Minesweeper-${{ env.VERSION }}-mac.dmg
-
-      - name: Upload artifacts to Release
+      - name: Upload jar to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            Minesweeper-${{ env.VERSION }}.jar
-            Minesweeper-${{ env.VERSION }}-win.exe
-            Minesweeper-${{ env.VERSION }}-mac.dmg
-            Minesweeper-${{ env.VERSION }}-linux.deb
+          files: target/Minesweeper-${{ env.VERSION }}.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
