@@ -37,11 +37,12 @@ jobs:
       # Package Windows portable exe
       - name: Package portable .exe (Windows)
         run: |
-          mkdir out
+          mkdir input
+          Copy-Item "target/Minesweeper-$env:VERSION.jar" input/
           jpackage `
             --type app-image `
-            --input . `
-            --main-jar "target/Minesweeper-$env:VERSION.jar" `
+            --input input `
+            --main-jar "Minesweeper-$env:VERSION.jar" `
             --main-class Main `
             --name "Minesweeper" `
             --app-version "$env:VERSION" `
@@ -50,7 +51,7 @@ jobs:
         shell: pwsh
 
       - name: Zip portable app
-        run: Compress-Archive -Path target/Minesweeper -DestinationPath target/Minesweeper-$env:VERSION-win.zip
+        run: Compress-Archive -Path out/Minesweeper -DestinationPath target/Minesweeper-$env:VERSION-win.zip
         shell: pwsh
 
 
