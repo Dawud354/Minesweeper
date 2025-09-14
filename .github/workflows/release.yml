@@ -1,4 +1,4 @@
-name: Windows Release Only
+name: Release Only
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latestt
 
     steps:
       - name: Checkout repository
@@ -30,41 +30,13 @@ jobs:
         run: mvn -B clean package
 
       - name: Rename jar for jpackage
-        run: |
-          Rename-Item -Path "target/minesweeper-1.0-SNAPSHOT.jar" -NewName ("Minesweeper-" + $env:VERSION + ".jar")
-        shell: pwsh
-
-      # Package Windows portable exe
-      - name: Package portable .exe (Windows)
-        run: |
-          mkdir input
-          Copy-Item "target/Minesweeper-$env:VERSION.jar" input/
-          jpackage `
-            --type app-image `
-            --input input `
-            --main-jar "Minesweeper-$env:VERSION.jar" `
-            --main-class Main `
-            --name "Minesweeper" `
-            --app-version "$env:VERSION" `
-            --java-options "--enable-preview" `
-            --dest out
-        shell: pwsh
-
-      - name: Zip portable app
-        run: Compress-Archive -Path out/Minesweeper -DestinationPath target/Minesweeper-$env:VERSION-win.zip
-        shell: pwsh
-
-
-      # List target folder to check what jpackage produced
-      - name: List target folder
-        run: dir target
+        run: mv target/minesweeper-1.0-SNAPSHOT.jar target/Minesweeper-${VERSION}.jar
+        shell: bash
 
       - name: Upload artifacts to Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             target/Minesweeper-${{ env.VERSION }}.jar
-            target/Minesweeper-${{ env.VERSION }}-win.zip
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
