@@ -38,7 +38,7 @@ jobs:
       - name: Package portable .exe (Windows)
         run: |
           jpackage `
-            --type exe `
+            --type app-image `
             --input target `
             --main-jar "Minesweeper-$env:VERSION.jar" `
             --main-class Main `
@@ -47,6 +47,11 @@ jobs:
             --java-options "--enable-preview" `
             --dest target
         shell: pwsh
+
+      - name: Zip portable app
+        run: Compress-Archive -Path target/Minesweeper -DestinationPath target/Minesweeper-$env:VERSION-win.zip
+        shell: pwsh
+
 
       # List target folder to check what jpackage produced
       - name: List target folder
@@ -57,6 +62,7 @@ jobs:
         with:
           files: |
             target/Minesweeper-${{ env.VERSION }}.jar
-            target/Minesweeper-${{ env.VERSION }}.exe
+            target/Minesweeper-${{ env.VERSION }}-win.zip
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
