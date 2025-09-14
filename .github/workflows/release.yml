@@ -29,7 +29,8 @@ jobs:
         run: mvn -B clean package
 
       - name: Rename jar for jpackage
-        run: mv target/minesweeper-1.0-SNAPSHOT.jar target/Minesweeper-${ env.VERSION }.jar
+        run: |
+          Rename-Item -Path "target/minesweeper-1.0-SNAPSHOT.jar" -NewName ("Minesweeper-" + $env:VERSION + ".jar")
         shell: pwsh
 
       # Package Windows portable exe
@@ -38,11 +39,12 @@ jobs:
           jpackage `
             --type exe `
             --input target `
-            --main-jar Minesweeper-${ env.VERSION }.jar `
+            --main-jar Minesweeper-$env:VERSION.jar `
             --main-class Main `
             --name Minesweeper `
             --java-options "--enable-preview" `
             --dest target
+        shell: pwsh
 
       # List target folder to check what jpackage produced
       - name: List target folder
@@ -52,7 +54,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            target/Minesweeper-${ env.VERSION }.jar
-            target/Minesweeper-${ env.VERSION }.exe
+            target/Minesweeper-${{ env.VERSION }}.jar
+            target/Minesweeper-${{ env.VERSION }}.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
