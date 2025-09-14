@@ -22,8 +22,8 @@ public class GameView {
     private Label statusLabel;
     private Label instructionLabel;
     private GameTimer gameTimer;
-    private final Image flagImage = new Image(getClass().getResource("/assets/images/flag.png").toExternalForm());
-    private final Image bombImage = new Image(getClass().getResource("/assets/images/mine.png").toExternalForm());
+    private final Image flagImage = new Image(getClass().getResource("/images/flag.png").toExternalForm());
+    private final Image bombImage = new Image(getClass().getResource("/images/mine.png").toExternalForm());
 
     public GameView(SceneManager manager, int gridRows, int gridCols, int mineCount) {
         this.manager = manager;

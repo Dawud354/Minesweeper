@@ -32,3 +32,6 @@ bin/
 
 ### Maven ###
 /target
+
+# Maven Shade plugin
+dependency-reduced-pom.xml
