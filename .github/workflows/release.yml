@@ -35,20 +35,19 @@ jobs:
       - name: Package portable .exe (Windows)
         run: |
           jpackage `
-            --type app-image `
+            --type exe `
             --input target `
             --main-jar Minesweeper-${{ env.VERSION }}.jar `
             --main-class Main `
             --name Minesweeper `
             --java-options "--enable-preview" `
             --dest target
-          Rename-Item -Path (Get-ChildItem *.exe) -NewName "Minesweeper-${{ env.VERSION }}-win.exe"
 
       - name: Upload artifacts to Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             target/Minesweeper-${{ env.VERSION }}.jar
-            target/Minesweeper-${{ env.VERSION }}-win.exe
+            target/Minesweeper.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
