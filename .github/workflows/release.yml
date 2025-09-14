@@ -43,6 +43,7 @@ jobs:
             --main-jar Minesweeper-$env:VERSION.jar `
             --main-class Main `
             --name Minesweeper-$env:VERSION `
+            --app-version $env:VERSION `
             --java-options "--enable-preview" `
             --dest target
         shell: pwsh
