@@ -53,13 +53,12 @@ jobs:
         run: |
           jpackage `
             --input target `
-            --main-jar Minesweeper-${env:VERSION}.jar `
+            --main-jar Minesweeper-${{ env.VERSION }}.jar `
             --main-class Main `
             --name Minesweeper `
             --type exe `
             --java-options "--enable-preview"
-          Rename-Item *.exe target/Minesweeper-${env:VERSION}-win.exe
-
+          Rename-Item -Path (Get-ChildItem *.exe) -NewName "Minesweeper-${{ env.VERSION }}-win.exe"
       # macOS .dmg
       - name: Package with jpackage (macOS)
         if: matrix.os == 'macos-latest'
