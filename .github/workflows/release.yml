@@ -40,7 +40,7 @@ jobs:
             --main-jar Minesweeper-${{ env.VERSION }}.jar `
             --main-class Main `
             --name Minesweeper `
-            --java-options "--enable-preview"
+            --java-options "--enable-preview" `
             --dest target
           Rename-Item -Path (Get-ChildItem *.exe) -NewName "Minesweeper-${{ env.VERSION }}-win.exe"
 
