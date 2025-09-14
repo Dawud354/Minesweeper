@@ -25,7 +25,7 @@ jobs:
           java-version: 22
 
       - name: Extract version from tag
-        id: vars
+        id: set_version
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
 
       - name: Build shaded jar
@@ -40,12 +40,12 @@ jobs:
         run: |
           jpackage \
             --input target \
-            --main-jar Minesweeper-${VERSION}.jar \
+            --main-jar Minesweeper-${{ env.VERSION }}.jar \
             --main-class Main \
             --name Minesweeper \
             --type deb \
             --java-options "--enable-preview"
-          mv *.deb Minesweeper-${VERSION}-linux.deb
+          mv *.deb Minesweeper-${{ env.VERSION }}-linux.deb
 
       # Windows .exe
       - name: Package with jpackage (Windows)
@@ -53,12 +53,12 @@ jobs:
         run: |
           jpackage `
             --input target `
-            --main-jar Minesweeper-${{ env.VERSION }}.jar `
+            --main-jar Minesweeper-${env:VERSION}.jar `
             --main-class Main `
             --name Minesweeper `
             --type exe `
             --java-options "--enable-preview"
-          ren *.exe Minesweeper-${{ env.VERSION }}-win.exe
+          Rename-Item *.exe target/Minesweeper-${env:VERSION}-win.exe
 
       # macOS .dmg
       - name: Package with jpackage (macOS)
