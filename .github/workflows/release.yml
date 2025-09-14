@@ -41,6 +41,7 @@ jobs:
             --main-class Main `
             --name Minesweeper `
             --java-options "--enable-preview"
+            --dest target
           Rename-Item -Path (Get-ChildItem *.exe) -NewName "Minesweeper-${{ env.VERSION }}-win.exe"
 
       - name: Upload artifacts to Release
