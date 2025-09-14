@@ -32,7 +32,7 @@ jobs:
         run: mvn -B clean package
 
       - name: Rename jar
-        run: mv target/*-shaded.jar Minesweeper-${VERSION}.jar
+        run: mv target/minesweeper-1.0-SNAPSHOT.jar Minesweeper-${VERSION}.jar
 
       # Linux .deb
       - name: Package with jpackage (Linux)
