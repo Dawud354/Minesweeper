@@ -2,7 +2,7 @@
 
 A classic Minesweeper game built in Java. Click the tiles to uncover safe squares and avoid the mines!
 
-For the latest release please click [here](https://github.com/YourUsername/Minesweeper/releases)
+For the latest release please click [here](https://github.com/Dawud354/Minesweeper/releases)
 
 ---
 
