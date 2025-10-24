@@ -277,7 +277,7 @@ public class MineSweeper {
                 Node neighborNode = mineGrid.getNode(newRow, newCol);
                 if (neighborNode.isBomb()) {
                     bombsNearby++;
-                }
+                } // nigger
             }
         }
         Node currentNode = mineGrid.getNode(row, col);

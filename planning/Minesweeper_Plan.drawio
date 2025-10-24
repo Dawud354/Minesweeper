@@ -1,0 +1,46 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="ZyxO_ZsuSYJcHlDoSQAZ">
+    <mxGraphModel dx="1213" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-1" value="" style="rounded=0;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="110" y="40" width="586.67" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-2" value="Easy/Medium/Hard/Custom radio buttons" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="223.34" y="80" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-3" value="Details about board:&lt;br&gt;&lt;b&gt;Size (show max)&lt;/b&gt;&lt;div&gt;&lt;b&gt;Mines&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="310.01" y="120" width="186.66" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-4" value="Start button" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="315.01" y="310" width="176.66" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-5" value="Some preview" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="343.34" y="205" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-6" value="" style="rounded=0;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="110" y="390" width="586.67" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-7" value="Home menu&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22rounded%3D0%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3Baspect%3Dfixed%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22110%22%20y%3D%2240%22%20width%3D%22586.67%22%20height%3D%22330%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-8" value="Game view" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-9" value="Menu bar: Exit/Reset" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="110" y="40" width="590" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-10" value="Menu bar: Exit/Reset" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="110" y="390" width="590" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-11" value="Grid" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="227.5" y="430" width="355" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="noyWFmqJvUXpsJ7HbXdU-12" value="Flags/ instructions" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="227.5" y="640" width="352.5" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
