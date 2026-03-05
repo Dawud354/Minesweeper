@@ -5,6 +5,12 @@ A classic Minesweeper game built in Java. Click the tiles to uncover safe square
 For the latest release please click [here](https://github.com/Dawud354/Minesweeper/releases)
 
 ---
+## Game Screenshots
+
+![Game Home Screen](readmeImages/MinesweeperMenu.png)
+![Playing Game Screen](readmeImages/MinesweeperGame.png)
+
+---
 
 ## Game Modes
 
